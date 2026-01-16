@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+package xeniq;
+
+option go_package = "github.com/neha/xeniqclone/backend/pb";
+
+// ============================================
+// PROVIDER SERVICE
+// ============================================
+service ProviderService {
+  rpc RegisterProvider(RegisterProviderRequest) returns (RegisterProviderResponse);
+  rpc SetAvailability(SetAvailabilityRequest) returns (SetAvailabilityResponse);
+  rpc ListProviders(ListProvidersRequest) returns (ListProvidersResponse);
+}
+
+message RegisterProviderRequest {
+  string provider_id = 1;
+  double latitude = 2;
+  double longitude = 3;
+}
+
+message RegisterProviderResponse {
+  bool success = 1;
+  string provider_code = 2; // ✅ NEW (long-term identity)
+}
+
+message SetAvailabilityRequest {
+  string provider_id = 1;
+  bool is_available = 2;
+}
+
+message SetAvailabilityResponse {
+  bool success = 1;
+  string provider_code = 2; // ✅ NEW (for UI consistency)
+}
+
+message ListProvidersRequest {}
+
+message ListProvidersResponse {
+  repeated ProviderStatusEvent providers = 1;
+}
+
+message ProviderStatusEvent {
+  string provider_id = 1;
+  string provider_code = 2;
+  bool is_available = 3;
+  double latitude = 4;
+  double longitude = 5;
+  int64 timestamp = 6;
+}
+
+// ============================================
+// CONNECT SERVICE (CALL SIGNALLING)
+// ============================================
+service ConnectService {
+  rpc RequestCall(CallRequest) returns (CallResponse);
+  rpc StreamIncomingCalls(IncomingCallsRequest)
+      returns (stream IncomingCallEvent);
+  rpc StreamConnection(stream ConnectionEvent)
+      returns (stream ConnectionEvent);
+}
+
+message CallRequest {
+  string provider_id = 1;      // legacy / fallback
+  string provider_code = 2;    // ✅ PRIMARY identifier
+  string consumer_id = 3;
+  string purpose = 4;
+}
+
+message CallResponse {
+  bool success = 1;
+  string message = 2;
+  string call_id = 3;
+}
+
+message IncomingCallsRequest {
+  string provider_id = 1;
+}
+
+message IncomingCallEvent {
+  string call_id = 1;
+  string consumer_id = 2;
+  string purpose = 3;
+}
+
+// ============================================
+// CONTROL SERVICE (CAMERA / GYRO / COMMANDS)
+// ============================================
+service ControlService {
+  rpc StreamControl(stream ControlEvent)
+      returns (stream ControlEvent);
+}
+
+message ControlEvent {
+  string call_id = 1;
+  string type = 2;      // e.g. ROTATE_LEFT, ZOOM_IN
+  double x = 3;
+  double y = 4;
+  double z = 5;
+}
+
+// ============================================
+// CONNECTION EVENTS (WEBRTC / FUTURE)
+// ============================================
+message ConnectionEvent {
+  string call_id = 1;
+  string type = 2;
+  string payload = 3;
+}

@@ -1,0 +1,20 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Logs
+*.log
+
+# Build output
+/bin/
+/dist/
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store

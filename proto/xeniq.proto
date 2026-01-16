@@ -1,0 +1,218 @@
+syntax = "proto3";
+
+package xeniq;
+
+option go_package = "github.com/neha/xeniqclone/backend/pb";
+
+// ---------------------------------------------------------------------------
+// 1. PROVIDER SERVICE (State & Persistence)
+// ---------------------------------------------------------------------------
+
+service ProviderService {
+  // Registers a provider (persists in memory).
+  rpc RegisterProvider(RegisterProviderRequest) returns (RegisterProviderResponse);
+
+  // Sets provider availability (Available / Busy / Offline).
+  rpc SetAvailability(SetAvailabilityRequest) returns (SetAvailabilityResponse);
+
+  // Consumer calls this to get all available providers.
+  rpc ListProviders(ListProvidersRequest) returns (ListProvidersResponse);
+  
+  // Consumer calls this to find a provider by code.
+  rpc SearchProvider(SearchRequest) returns (SearchResponse);
+}
+
+message RegisterProviderRequest {
+  string provider_id = 1;
+  string provider_code = 2;
+  double latitude = 3;
+  double longitude = 4;
+}
+
+message RegisterProviderResponse {
+  bool success = 1;
+  string message = 2;
+  string provider_code = 3;
+}
+
+message SetAvailabilityRequest {
+  string provider_id = 1;
+  bool is_available = 2;
+}
+
+message SetAvailabilityResponse {
+  bool success = 1;
+  string provider_code = 2;
+}
+
+message ListProvidersRequest {}
+
+message ListProvidersResponse {
+  repeated ProviderStatusEvent providers = 1;
+}
+
+message SearchRequest {
+  string provider_code = 1;
+}
+
+message SearchResponse {
+  bool success = 1;
+  string message = 2;
+  string provider_id = 3;
+  bool is_available = 4;
+}
+
+message ProviderStatusEvent {
+  string provider_id = 1;
+  string provider_code = 2;
+  bool is_available = 3; // True = Available, False = Busy/Offline
+  double latitude = 4;
+  double longitude = 5;
+  int64 timestamp = 6;
+}
+
+// ---------------------------------------------------------------------------
+// 2. CONNECT SERVICE (Call Delivery & Signaling)
+// ---------------------------------------------------------------------------
+
+service ConnectService {
+  // 1. Provider subscribes to incoming calls (Server-Side Stream).
+  // Keeps this open to receive "Ringing" events.
+  rpc StreamIncomingCalls(IncomingCallsRequest) returns (stream IncomingCallEvent);
+
+  // 2. Consumer requests a call.
+  // Backend checks availability -> Pushes event to Provider -> Returns Call ID.
+  rpc RequestCall(CallRequest) returns (CallResponse);
+
+  // 3. Provider accepts the call.
+  rpc AcceptCall(AnswerCallRequest) returns (AnswerCallResponse);
+
+  // 4. Provider declines the call.
+  rpc DeclineCall(DeclineCallRequest) returns (DeclineCallResponse);
+
+  // 5. WebRTC Signaling (Offer/Answer/ICE) - Kept for Media Phase.
+  rpc StreamConnection(stream ConnectionEvent) returns (stream ConnectionEvent);
+}
+
+message IncomingCallsRequest {
+  string provider_id = 1;
+}
+
+message IncomingCallEvent {
+  string call_id = 1;
+  string consumer_id = 2;
+  string consumer_name = 3; // "Consumer A"
+  string purpose = 4;       // "Lost Item"
+}
+
+message CallRequest {
+  string provider_id = 1;  // Legacy (Optional if code is used, but kept for proto compatibility)
+  string consumer_id = 2;
+  string consumer_name = 3;
+  string purpose = 4;
+  string provider_code = 5; // NEW: Call by Code
+}
+
+message CallResponse {
+  bool success = 1;
+  string call_id = 2;
+  string message = 3;
+}
+
+message AnswerCallRequest {
+  string call_id = 1;
+  string provider_id = 2;
+}
+
+message AnswerCallResponse {
+  bool success = 1;
+  string session_id = 2;
+}
+
+message DeclineCallRequest {
+  string call_id = 1;
+  string provider_id = 2;
+  string reason = 3;
+}
+
+message DeclineCallResponse {
+  bool success = 1;
+}
+
+// Legacy/WebRTC Signaling Messages
+message ConnectionEvent {
+  string call_id = 1;
+  string sender_id = 2;
+  string receiver_id = 3;
+  
+  oneof payload {
+    IceCandidate ice = 6;
+    SessionDescription sdp = 7;
+    EndCall end = 8;
+  }
+}
+
+message IceCandidate {
+  string candidate = 1;
+  string sdp_mid = 2;
+  int32 sdp_m_line_index = 3;
+}
+
+message SessionDescription {
+  string type = 1;
+  string sdp = 2;
+}
+
+message EndCall {
+  string reason = 1;
+}
+
+// ---------------------------------------------------------------------------
+// 3. CONTROL SERVICE (Remote Control)
+// ---------------------------------------------------------------------------
+
+service ControlService {
+  rpc StreamControl(stream ControlEvent) returns (stream ControlEvent);
+}
+
+message ControlEvent {
+  string call_id = 1;
+  string sender_id = 2;
+  
+  oneof payload {
+    CameraCommand command = 3;
+    GyroData gyro = 4;
+    ControlAck ack = 5;
+  }
+}
+
+message CameraCommand {
+  CommandType type = 1;
+  float value = 2;
+}
+
+enum CommandType {
+  UNKNOWN = 0;
+  ROTATE_LEFT = 1;
+  ROTATE_RIGHT = 2;
+  MOVE_FORWARD = 3;
+  MOVE_BACKWARD = 4;
+  POINT_TO_OBJECT = 5;
+  ZOOM_IN = 6;
+  ZOOM_OUT = 7;
+  STOP = 8;
+}
+
+message GyroData {
+  float x = 1;
+  float y = 2;
+  float z = 3;
+  float roll = 4;
+  float pitch = 5;
+  float yaw = 6;
+}
+
+message ControlAck {
+  string command_id = 1;
+  bool success = 2;
+}

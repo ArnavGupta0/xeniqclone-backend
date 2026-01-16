@@ -1,0 +1,10 @@
+// DEPRECATED: This file has been consolidated into xeniq.proto
+// Kept for reference only - DO NOT USE
+
+syntax = "proto3";
+
+package xeniq;
+
+option go_package = "github.com/neha/xeniqclone/backend/pb";
+
+// All definitions have been moved to xeniq.proto

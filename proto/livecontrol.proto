@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package livecontrol;
+
+option go_package = "github.com/neha/xeniqclone/backend/pb";
+
+service LiveControlService {
+  rpc ControlStream(stream ControlEvent) returns (stream ControlEvent);
+}
+
+message ControlEvent {
+  string call_id = 1;
+  Role sender_role = 2;
+  oneof payload {
+    CommandEvent command = 3;
+    GyroEvent gyro = 4;
+    SystemEvent system = 5;
+  }
+}
+
+enum Role {
+  CONSUMER = 0;
+  PROVIDER = 1;
+}
+
+message CommandEvent {
+  CommandType type = 1;
+  float x = 2;              // For POINT_OBJECT (0.0-1.0 normalized)
+  float y = 3;              // For POINT_OBJECT (0.0-1.0 normalized)
+  float zoom_delta = 4;     // For ZOOM_DELTA (e.g., ±0.1)
+  int64 timestamp_ms = 5;   // Client timestamp for ordering
+}
+
+enum CommandType {
+  UNKNOWN = 0;
+  ROTATE_LEFT = 1;
+  ROTATE_RIGHT = 2;
+  MOVE_FORWARD = 3;
+  MOVE_BACKWARD = 4;
+  POINT_OBJECT = 5;
+  STOP = 6;
+  ZOOM_IN = 7;
+  ZOOM_OUT = 8;
+  ZOOM_DELTA = 9;
+}
+
+message GyroEvent {
+  float pitch = 1;
+  float yaw = 2;
+  float roll = 3;
+  int64 timestamp = 4;
+}
+
+message SystemEvent {
+  string message = 1;
+}
