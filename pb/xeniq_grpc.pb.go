@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.6.0
 // - protoc             v6.33.4
-// source: proto/xeniq.proto
+// source: xeniq.proto
 
 package pb
 
@@ -239,7 +239,7 @@ var ProviderService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/xeniq.proto",
+	Metadata: "xeniq.proto",
 }
 
 const (
@@ -505,7 +505,7 @@ var ConnectService_ServiceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 	},
-	Metadata: "proto/xeniq.proto",
+	Metadata: "xeniq.proto",
 }
 
 const (
@@ -601,5 +601,5 @@ var ControlService_ServiceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 	},
-	Metadata: "proto/xeniq.proto",
+	Metadata: "xeniq.proto",
 }

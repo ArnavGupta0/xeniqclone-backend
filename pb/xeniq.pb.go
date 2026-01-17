@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        v6.33.4
-// source: proto/xeniq.proto
+// source: xeniq.proto
 
 package pb
 
@@ -20,6 +20,52 @@ const (
 	// Verify that runtime/protoimpl is sufficiently up-to-date.
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
+
+type ControlModeType int32
+
+const (
+	ControlModeType_CONTROL_MODE_BUTTON ControlModeType = 0
+	ControlModeType_CONTROL_MODE_GYRO   ControlModeType = 1
+)
+
+// Enum value maps for ControlModeType.
+var (
+	ControlModeType_name = map[int32]string{
+		0: "CONTROL_MODE_BUTTON",
+		1: "CONTROL_MODE_GYRO",
+	}
+	ControlModeType_value = map[string]int32{
+		"CONTROL_MODE_BUTTON": 0,
+		"CONTROL_MODE_GYRO":   1,
+	}
+)
+
+func (x ControlModeType) Enum() *ControlModeType {
+	p := new(ControlModeType)
+	*p = x
+	return p
+}
+
+func (x ControlModeType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ControlModeType) Descriptor() protoreflect.EnumDescriptor {
+	return file_xeniq_proto_enumTypes[0].Descriptor()
+}
+
+func (ControlModeType) Type() protoreflect.EnumType {
+	return &file_xeniq_proto_enumTypes[0]
+}
+
+func (x ControlModeType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ControlModeType.Descriptor instead.
+func (ControlModeType) EnumDescriptor() ([]byte, []int) {
+	return file_xeniq_proto_rawDescGZIP(), []int{0}
+}
 
 type CommandType int32
 
@@ -78,11 +124,11 @@ func (x CommandType) String() string {
 }
 
 func (CommandType) Descriptor() protoreflect.EnumDescriptor {
-	return file_proto_xeniq_proto_enumTypes[0].Descriptor()
+	return file_xeniq_proto_enumTypes[1].Descriptor()
 }
 
 func (CommandType) Type() protoreflect.EnumType {
-	return &file_proto_xeniq_proto_enumTypes[0]
+	return &file_xeniq_proto_enumTypes[1]
 }
 
 func (x CommandType) Number() protoreflect.EnumNumber {
@@ -91,7 +137,7 @@ func (x CommandType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use CommandType.Descriptor instead.
 func (CommandType) EnumDescriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{0}
+	return file_xeniq_proto_rawDescGZIP(), []int{1}
 }
 
 type RegisterProviderRequest struct {
@@ -106,7 +152,7 @@ type RegisterProviderRequest struct {
 
 func (x *RegisterProviderRequest) Reset() {
 	*x = RegisterProviderRequest{}
-	mi := &file_proto_xeniq_proto_msgTypes[0]
+	mi := &file_xeniq_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -118,7 +164,7 @@ func (x *RegisterProviderRequest) String() string {
 func (*RegisterProviderRequest) ProtoMessage() {}
 
 func (x *RegisterProviderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[0]
+	mi := &file_xeniq_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -131,7 +177,7 @@ func (x *RegisterProviderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterProviderRequest.ProtoReflect.Descriptor instead.
 func (*RegisterProviderRequest) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{0}
+	return file_xeniq_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *RegisterProviderRequest) GetProviderId() string {
@@ -173,7 +219,7 @@ type RegisterProviderResponse struct {
 
 func (x *RegisterProviderResponse) Reset() {
 	*x = RegisterProviderResponse{}
-	mi := &file_proto_xeniq_proto_msgTypes[1]
+	mi := &file_xeniq_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -185,7 +231,7 @@ func (x *RegisterProviderResponse) String() string {
 func (*RegisterProviderResponse) ProtoMessage() {}
 
 func (x *RegisterProviderResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[1]
+	mi := &file_xeniq_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -198,7 +244,7 @@ func (x *RegisterProviderResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterProviderResponse.ProtoReflect.Descriptor instead.
 func (*RegisterProviderResponse) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{1}
+	return file_xeniq_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *RegisterProviderResponse) GetSuccess() bool {
@@ -232,7 +278,7 @@ type SetAvailabilityRequest struct {
 
 func (x *SetAvailabilityRequest) Reset() {
 	*x = SetAvailabilityRequest{}
-	mi := &file_proto_xeniq_proto_msgTypes[2]
+	mi := &file_xeniq_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -244,7 +290,7 @@ func (x *SetAvailabilityRequest) String() string {
 func (*SetAvailabilityRequest) ProtoMessage() {}
 
 func (x *SetAvailabilityRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[2]
+	mi := &file_xeniq_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -257,7 +303,7 @@ func (x *SetAvailabilityRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetAvailabilityRequest.ProtoReflect.Descriptor instead.
 func (*SetAvailabilityRequest) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{2}
+	return file_xeniq_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *SetAvailabilityRequest) GetProviderId() string {
@@ -284,7 +330,7 @@ type SetAvailabilityResponse struct {
 
 func (x *SetAvailabilityResponse) Reset() {
 	*x = SetAvailabilityResponse{}
-	mi := &file_proto_xeniq_proto_msgTypes[3]
+	mi := &file_xeniq_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -296,7 +342,7 @@ func (x *SetAvailabilityResponse) String() string {
 func (*SetAvailabilityResponse) ProtoMessage() {}
 
 func (x *SetAvailabilityResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[3]
+	mi := &file_xeniq_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -309,7 +355,7 @@ func (x *SetAvailabilityResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetAvailabilityResponse.ProtoReflect.Descriptor instead.
 func (*SetAvailabilityResponse) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{3}
+	return file_xeniq_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *SetAvailabilityResponse) GetSuccess() bool {
@@ -334,7 +380,7 @@ type ListProvidersRequest struct {
 
 func (x *ListProvidersRequest) Reset() {
 	*x = ListProvidersRequest{}
-	mi := &file_proto_xeniq_proto_msgTypes[4]
+	mi := &file_xeniq_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -346,7 +392,7 @@ func (x *ListProvidersRequest) String() string {
 func (*ListProvidersRequest) ProtoMessage() {}
 
 func (x *ListProvidersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[4]
+	mi := &file_xeniq_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -359,7 +405,7 @@ func (x *ListProvidersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListProvidersRequest.ProtoReflect.Descriptor instead.
 func (*ListProvidersRequest) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{4}
+	return file_xeniq_proto_rawDescGZIP(), []int{4}
 }
 
 type ListProvidersResponse struct {
@@ -371,7 +417,7 @@ type ListProvidersResponse struct {
 
 func (x *ListProvidersResponse) Reset() {
 	*x = ListProvidersResponse{}
-	mi := &file_proto_xeniq_proto_msgTypes[5]
+	mi := &file_xeniq_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -383,7 +429,7 @@ func (x *ListProvidersResponse) String() string {
 func (*ListProvidersResponse) ProtoMessage() {}
 
 func (x *ListProvidersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[5]
+	mi := &file_xeniq_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -396,7 +442,7 @@ func (x *ListProvidersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListProvidersResponse.ProtoReflect.Descriptor instead.
 func (*ListProvidersResponse) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{5}
+	return file_xeniq_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ListProvidersResponse) GetProviders() []*ProviderStatusEvent {
@@ -415,7 +461,7 @@ type SearchRequest struct {
 
 func (x *SearchRequest) Reset() {
 	*x = SearchRequest{}
-	mi := &file_proto_xeniq_proto_msgTypes[6]
+	mi := &file_xeniq_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -427,7 +473,7 @@ func (x *SearchRequest) String() string {
 func (*SearchRequest) ProtoMessage() {}
 
 func (x *SearchRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[6]
+	mi := &file_xeniq_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -440,7 +486,7 @@ func (x *SearchRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchRequest.ProtoReflect.Descriptor instead.
 func (*SearchRequest) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{6}
+	return file_xeniq_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *SearchRequest) GetProviderCode() string {
@@ -462,7 +508,7 @@ type SearchResponse struct {
 
 func (x *SearchResponse) Reset() {
 	*x = SearchResponse{}
-	mi := &file_proto_xeniq_proto_msgTypes[7]
+	mi := &file_xeniq_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -474,7 +520,7 @@ func (x *SearchResponse) String() string {
 func (*SearchResponse) ProtoMessage() {}
 
 func (x *SearchResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[7]
+	mi := &file_xeniq_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -487,7 +533,7 @@ func (x *SearchResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchResponse.ProtoReflect.Descriptor instead.
 func (*SearchResponse) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{7}
+	return file_xeniq_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *SearchResponse) GetSuccess() bool {
@@ -532,7 +578,7 @@ type ProviderStatusEvent struct {
 
 func (x *ProviderStatusEvent) Reset() {
 	*x = ProviderStatusEvent{}
-	mi := &file_proto_xeniq_proto_msgTypes[8]
+	mi := &file_xeniq_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -544,7 +590,7 @@ func (x *ProviderStatusEvent) String() string {
 func (*ProviderStatusEvent) ProtoMessage() {}
 
 func (x *ProviderStatusEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[8]
+	mi := &file_xeniq_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -557,7 +603,7 @@ func (x *ProviderStatusEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ProviderStatusEvent.ProtoReflect.Descriptor instead.
 func (*ProviderStatusEvent) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{8}
+	return file_xeniq_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *ProviderStatusEvent) GetProviderId() string {
@@ -611,7 +657,7 @@ type IncomingCallsRequest struct {
 
 func (x *IncomingCallsRequest) Reset() {
 	*x = IncomingCallsRequest{}
-	mi := &file_proto_xeniq_proto_msgTypes[9]
+	mi := &file_xeniq_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -623,7 +669,7 @@ func (x *IncomingCallsRequest) String() string {
 func (*IncomingCallsRequest) ProtoMessage() {}
 
 func (x *IncomingCallsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[9]
+	mi := &file_xeniq_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -636,7 +682,7 @@ func (x *IncomingCallsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IncomingCallsRequest.ProtoReflect.Descriptor instead.
 func (*IncomingCallsRequest) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{9}
+	return file_xeniq_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *IncomingCallsRequest) GetProviderId() string {
@@ -658,7 +704,7 @@ type IncomingCallEvent struct {
 
 func (x *IncomingCallEvent) Reset() {
 	*x = IncomingCallEvent{}
-	mi := &file_proto_xeniq_proto_msgTypes[10]
+	mi := &file_xeniq_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -670,7 +716,7 @@ func (x *IncomingCallEvent) String() string {
 func (*IncomingCallEvent) ProtoMessage() {}
 
 func (x *IncomingCallEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[10]
+	mi := &file_xeniq_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -683,7 +729,7 @@ func (x *IncomingCallEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IncomingCallEvent.ProtoReflect.Descriptor instead.
 func (*IncomingCallEvent) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{10}
+	return file_xeniq_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *IncomingCallEvent) GetCallId() string {
@@ -727,7 +773,7 @@ type CallRequest struct {
 
 func (x *CallRequest) Reset() {
 	*x = CallRequest{}
-	mi := &file_proto_xeniq_proto_msgTypes[11]
+	mi := &file_xeniq_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -739,7 +785,7 @@ func (x *CallRequest) String() string {
 func (*CallRequest) ProtoMessage() {}
 
 func (x *CallRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[11]
+	mi := &file_xeniq_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -752,7 +798,7 @@ func (x *CallRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CallRequest.ProtoReflect.Descriptor instead.
 func (*CallRequest) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{11}
+	return file_xeniq_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *CallRequest) GetProviderId() string {
@@ -801,7 +847,7 @@ type CallResponse struct {
 
 func (x *CallResponse) Reset() {
 	*x = CallResponse{}
-	mi := &file_proto_xeniq_proto_msgTypes[12]
+	mi := &file_xeniq_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -813,7 +859,7 @@ func (x *CallResponse) String() string {
 func (*CallResponse) ProtoMessage() {}
 
 func (x *CallResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[12]
+	mi := &file_xeniq_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -826,7 +872,7 @@ func (x *CallResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CallResponse.ProtoReflect.Descriptor instead.
 func (*CallResponse) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{12}
+	return file_xeniq_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *CallResponse) GetSuccess() bool {
@@ -860,7 +906,7 @@ type AnswerCallRequest struct {
 
 func (x *AnswerCallRequest) Reset() {
 	*x = AnswerCallRequest{}
-	mi := &file_proto_xeniq_proto_msgTypes[13]
+	mi := &file_xeniq_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -872,7 +918,7 @@ func (x *AnswerCallRequest) String() string {
 func (*AnswerCallRequest) ProtoMessage() {}
 
 func (x *AnswerCallRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[13]
+	mi := &file_xeniq_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -885,7 +931,7 @@ func (x *AnswerCallRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnswerCallRequest.ProtoReflect.Descriptor instead.
 func (*AnswerCallRequest) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{13}
+	return file_xeniq_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *AnswerCallRequest) GetCallId() string {
@@ -912,7 +958,7 @@ type AnswerCallResponse struct {
 
 func (x *AnswerCallResponse) Reset() {
 	*x = AnswerCallResponse{}
-	mi := &file_proto_xeniq_proto_msgTypes[14]
+	mi := &file_xeniq_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -924,7 +970,7 @@ func (x *AnswerCallResponse) String() string {
 func (*AnswerCallResponse) ProtoMessage() {}
 
 func (x *AnswerCallResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[14]
+	mi := &file_xeniq_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -937,7 +983,7 @@ func (x *AnswerCallResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnswerCallResponse.ProtoReflect.Descriptor instead.
 func (*AnswerCallResponse) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{14}
+	return file_xeniq_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *AnswerCallResponse) GetSuccess() bool {
@@ -965,7 +1011,7 @@ type DeclineCallRequest struct {
 
 func (x *DeclineCallRequest) Reset() {
 	*x = DeclineCallRequest{}
-	mi := &file_proto_xeniq_proto_msgTypes[15]
+	mi := &file_xeniq_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -977,7 +1023,7 @@ func (x *DeclineCallRequest) String() string {
 func (*DeclineCallRequest) ProtoMessage() {}
 
 func (x *DeclineCallRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[15]
+	mi := &file_xeniq_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -990,7 +1036,7 @@ func (x *DeclineCallRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeclineCallRequest.ProtoReflect.Descriptor instead.
 func (*DeclineCallRequest) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{15}
+	return file_xeniq_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *DeclineCallRequest) GetCallId() string {
@@ -1023,7 +1069,7 @@ type DeclineCallResponse struct {
 
 func (x *DeclineCallResponse) Reset() {
 	*x = DeclineCallResponse{}
-	mi := &file_proto_xeniq_proto_msgTypes[16]
+	mi := &file_xeniq_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1035,7 +1081,7 @@ func (x *DeclineCallResponse) String() string {
 func (*DeclineCallResponse) ProtoMessage() {}
 
 func (x *DeclineCallResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[16]
+	mi := &file_xeniq_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1048,7 +1094,7 @@ func (x *DeclineCallResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeclineCallResponse.ProtoReflect.Descriptor instead.
 func (*DeclineCallResponse) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{16}
+	return file_xeniq_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *DeclineCallResponse) GetSuccess() bool {
@@ -1076,7 +1122,7 @@ type ConnectionEvent struct {
 
 func (x *ConnectionEvent) Reset() {
 	*x = ConnectionEvent{}
-	mi := &file_proto_xeniq_proto_msgTypes[17]
+	mi := &file_xeniq_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1088,7 +1134,7 @@ func (x *ConnectionEvent) String() string {
 func (*ConnectionEvent) ProtoMessage() {}
 
 func (x *ConnectionEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[17]
+	mi := &file_xeniq_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1101,7 +1147,7 @@ func (x *ConnectionEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConnectionEvent.ProtoReflect.Descriptor instead.
 func (*ConnectionEvent) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{17}
+	return file_xeniq_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *ConnectionEvent) GetCallId() string {
@@ -1192,7 +1238,7 @@ type IceCandidate struct {
 
 func (x *IceCandidate) Reset() {
 	*x = IceCandidate{}
-	mi := &file_proto_xeniq_proto_msgTypes[18]
+	mi := &file_xeniq_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1204,7 +1250,7 @@ func (x *IceCandidate) String() string {
 func (*IceCandidate) ProtoMessage() {}
 
 func (x *IceCandidate) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[18]
+	mi := &file_xeniq_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1217,7 +1263,7 @@ func (x *IceCandidate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IceCandidate.ProtoReflect.Descriptor instead.
 func (*IceCandidate) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{18}
+	return file_xeniq_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *IceCandidate) GetCandidate() string {
@@ -1251,7 +1297,7 @@ type SessionDescription struct {
 
 func (x *SessionDescription) Reset() {
 	*x = SessionDescription{}
-	mi := &file_proto_xeniq_proto_msgTypes[19]
+	mi := &file_xeniq_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1263,7 +1309,7 @@ func (x *SessionDescription) String() string {
 func (*SessionDescription) ProtoMessage() {}
 
 func (x *SessionDescription) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[19]
+	mi := &file_xeniq_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1276,7 +1322,7 @@ func (x *SessionDescription) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SessionDescription.ProtoReflect.Descriptor instead.
 func (*SessionDescription) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{19}
+	return file_xeniq_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *SessionDescription) GetType() string {
@@ -1302,7 +1348,7 @@ type EndCall struct {
 
 func (x *EndCall) Reset() {
 	*x = EndCall{}
-	mi := &file_proto_xeniq_proto_msgTypes[20]
+	mi := &file_xeniq_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1314,7 +1360,7 @@ func (x *EndCall) String() string {
 func (*EndCall) ProtoMessage() {}
 
 func (x *EndCall) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[20]
+	mi := &file_xeniq_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1327,7 +1373,7 @@ func (x *EndCall) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EndCall.ProtoReflect.Descriptor instead.
 func (*EndCall) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{20}
+	return file_xeniq_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *EndCall) GetReason() string {
@@ -1346,6 +1392,7 @@ type ControlEvent struct {
 	//	*ControlEvent_Command
 	//	*ControlEvent_Gyro
 	//	*ControlEvent_Ack
+	//	*ControlEvent_State
 	Payload       isControlEvent_Payload `protobuf_oneof:"payload"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -1353,7 +1400,7 @@ type ControlEvent struct {
 
 func (x *ControlEvent) Reset() {
 	*x = ControlEvent{}
-	mi := &file_proto_xeniq_proto_msgTypes[21]
+	mi := &file_xeniq_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1365,7 +1412,7 @@ func (x *ControlEvent) String() string {
 func (*ControlEvent) ProtoMessage() {}
 
 func (x *ControlEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[21]
+	mi := &file_xeniq_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1378,7 +1425,7 @@ func (x *ControlEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ControlEvent.ProtoReflect.Descriptor instead.
 func (*ControlEvent) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{21}
+	return file_xeniq_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *ControlEvent) GetCallId() string {
@@ -1429,20 +1476,33 @@ func (x *ControlEvent) GetAck() *ControlAck {
 	return nil
 }
 
+func (x *ControlEvent) GetState() *CameraState {
+	if x != nil {
+		if x, ok := x.Payload.(*ControlEvent_State); ok {
+			return x.State
+		}
+	}
+	return nil
+}
+
 type isControlEvent_Payload interface {
 	isControlEvent_Payload()
 }
 
 type ControlEvent_Command struct {
-	Command *CameraCommand `protobuf:"bytes,3,opt,name=command,proto3,oneof"`
+	Command *CameraCommand `protobuf:"bytes,3,opt,name=command,proto3,oneof"` // Legacy command-based control
 }
 
 type ControlEvent_Gyro struct {
-	Gyro *GyroData `protobuf:"bytes,4,opt,name=gyro,proto3,oneof"`
+	Gyro *GyroData `protobuf:"bytes,4,opt,name=gyro,proto3,oneof"` // Gyro orientation updates
 }
 
 type ControlEvent_Ack struct {
 	Ack *ControlAck `protobuf:"bytes,5,opt,name=ack,proto3,oneof"`
+}
+
+type ControlEvent_State struct {
+	State *CameraState `protobuf:"bytes,6,opt,name=state,proto3,oneof"` // State-based camera control (preferred)
 }
 
 func (*ControlEvent_Command) isControlEvent_Payload() {}
@@ -1451,19 +1511,89 @@ func (*ControlEvent_Gyro) isControlEvent_Payload() {}
 
 func (*ControlEvent_Ack) isControlEvent_Payload() {}
 
+func (*ControlEvent_State) isControlEvent_Payload() {}
+
+// State-based camera control - replaces command flooding
+type CameraState struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ZoomLevel     float32                `protobuf:"fixed32,1,opt,name=zoom_level,json=zoomLevel,proto3" json:"zoom_level,omitempty"` // Absolute zoom: 1.0 = normal, up to max (e.g. 6.0)
+	AnchorX       float32                `protobuf:"fixed32,2,opt,name=anchor_x,json=anchorX,proto3" json:"anchor_x,omitempty"`       // Normalized 0.0-1.0, zoom anchor X
+	AnchorY       float32                `protobuf:"fixed32,3,opt,name=anchor_y,json=anchorY,proto3" json:"anchor_y,omitempty"`       // Normalized 0.0-1.0, zoom anchor Y
+	Mode          ControlModeType        `protobuf:"varint,4,opt,name=mode,proto3,enum=xeniq.ControlModeType" json:"mode,omitempty"`  // Current control mode
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CameraState) Reset() {
+	*x = CameraState{}
+	mi := &file_xeniq_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CameraState) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CameraState) ProtoMessage() {}
+
+func (x *CameraState) ProtoReflect() protoreflect.Message {
+	mi := &file_xeniq_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CameraState.ProtoReflect.Descriptor instead.
+func (*CameraState) Descriptor() ([]byte, []int) {
+	return file_xeniq_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *CameraState) GetZoomLevel() float32 {
+	if x != nil {
+		return x.ZoomLevel
+	}
+	return 0
+}
+
+func (x *CameraState) GetAnchorX() float32 {
+	if x != nil {
+		return x.AnchorX
+	}
+	return 0
+}
+
+func (x *CameraState) GetAnchorY() float32 {
+	if x != nil {
+		return x.AnchorY
+	}
+	return 0
+}
+
+func (x *CameraState) GetMode() ControlModeType {
+	if x != nil {
+		return x.Mode
+	}
+	return ControlModeType_CONTROL_MODE_BUTTON
+}
+
+// Legacy command-based control (for backwards compatibility)
 type CameraCommand struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Type          CommandType            `protobuf:"varint,1,opt,name=type,proto3,enum=xeniq.CommandType" json:"type,omitempty"`
 	Value         float32                `protobuf:"fixed32,2,opt,name=value,proto3" json:"value,omitempty"`
-	Yaw           float32                `protobuf:"fixed32,3,opt,name=yaw,proto3" json:"yaw,omitempty"`     // normalized -1.0 to +1.0
-	Pitch         float32                `protobuf:"fixed32,4,opt,name=pitch,proto3" json:"pitch,omitempty"` // normalized -1.0 to +1.0
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *CameraCommand) Reset() {
 	*x = CameraCommand{}
-	mi := &file_proto_xeniq_proto_msgTypes[22]
+	mi := &file_xeniq_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1475,7 +1605,7 @@ func (x *CameraCommand) String() string {
 func (*CameraCommand) ProtoMessage() {}
 
 func (x *CameraCommand) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[22]
+	mi := &file_xeniq_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1488,7 +1618,7 @@ func (x *CameraCommand) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CameraCommand.ProtoReflect.Descriptor instead.
 func (*CameraCommand) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{22}
+	return file_xeniq_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *CameraCommand) GetType() CommandType {
@@ -1505,35 +1635,21 @@ func (x *CameraCommand) GetValue() float32 {
 	return 0
 }
 
-func (x *CameraCommand) GetYaw() float32 {
-	if x != nil {
-		return x.Yaw
-	}
-	return 0
-}
-
-func (x *CameraCommand) GetPitch() float32 {
-	if x != nil {
-		return x.Pitch
-	}
-	return 0
-}
-
 type GyroData struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	X             float32                `protobuf:"fixed32,1,opt,name=x,proto3" json:"x,omitempty"`
 	Y             float32                `protobuf:"fixed32,2,opt,name=y,proto3" json:"y,omitempty"`
 	Z             float32                `protobuf:"fixed32,3,opt,name=z,proto3" json:"z,omitempty"`
 	Roll          float32                `protobuf:"fixed32,4,opt,name=roll,proto3" json:"roll,omitempty"`
-	Pitch         float32                `protobuf:"fixed32,5,opt,name=pitch,proto3" json:"pitch,omitempty"`
-	Yaw           float32                `protobuf:"fixed32,6,opt,name=yaw,proto3" json:"yaw,omitempty"`
+	Pitch         float32                `protobuf:"fixed32,5,opt,name=pitch,proto3" json:"pitch,omitempty"` // Normalized -1.0 to +1.0
+	Yaw           float32                `protobuf:"fixed32,6,opt,name=yaw,proto3" json:"yaw,omitempty"`     // Normalized -1.0 to +1.0
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GyroData) Reset() {
 	*x = GyroData{}
-	mi := &file_proto_xeniq_proto_msgTypes[23]
+	mi := &file_xeniq_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1545,7 +1661,7 @@ func (x *GyroData) String() string {
 func (*GyroData) ProtoMessage() {}
 
 func (x *GyroData) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[23]
+	mi := &file_xeniq_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1558,7 +1674,7 @@ func (x *GyroData) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GyroData.ProtoReflect.Descriptor instead.
 func (*GyroData) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{23}
+	return file_xeniq_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *GyroData) GetX() float32 {
@@ -1613,7 +1729,7 @@ type ControlAck struct {
 
 func (x *ControlAck) Reset() {
 	*x = ControlAck{}
-	mi := &file_proto_xeniq_proto_msgTypes[24]
+	mi := &file_xeniq_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1625,7 +1741,7 @@ func (x *ControlAck) String() string {
 func (*ControlAck) ProtoMessage() {}
 
 func (x *ControlAck) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_xeniq_proto_msgTypes[24]
+	mi := &file_xeniq_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1638,7 +1754,7 @@ func (x *ControlAck) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ControlAck.ProtoReflect.Descriptor instead.
 func (*ControlAck) Descriptor() ([]byte, []int) {
-	return file_proto_xeniq_proto_rawDescGZIP(), []int{24}
+	return file_xeniq_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *ControlAck) GetCommandId() string {
@@ -1655,11 +1771,11 @@ func (x *ControlAck) GetSuccess() bool {
 	return false
 }
 
-var File_proto_xeniq_proto protoreflect.FileDescriptor
+var File_xeniq_proto protoreflect.FileDescriptor
 
-const file_proto_xeniq_proto_rawDesc = "" +
+const file_xeniq_proto_rawDesc = "" +
 	"\n" +
-	"\x11proto/xeniq.proto\x12\x05xeniq\"\x99\x01\n" +
+	"\vxeniq.proto\x12\x05xeniq\"\x99\x01\n" +
 	"\x17RegisterProviderRequest\x12\x1f\n" +
 	"\vprovider_id\x18\x01 \x01(\tR\n" +
 	"providerId\x12#\n" +
@@ -1749,19 +1865,24 @@ const file_proto_xeniq_proto_rawDesc = "" +
 	"\x04type\x18\x01 \x01(\tR\x04type\x12\x10\n" +
 	"\x03sdp\x18\x02 \x01(\tR\x03sdp\"!\n" +
 	"\aEndCall\x12\x16\n" +
-	"\x06reason\x18\x01 \x01(\tR\x06reason\"\xcf\x01\n" +
+	"\x06reason\x18\x01 \x01(\tR\x06reason\"\xfb\x01\n" +
 	"\fControlEvent\x12\x17\n" +
 	"\acall_id\x18\x01 \x01(\tR\x06callId\x12\x1b\n" +
 	"\tsender_id\x18\x02 \x01(\tR\bsenderId\x120\n" +
 	"\acommand\x18\x03 \x01(\v2\x14.xeniq.CameraCommandH\x00R\acommand\x12%\n" +
 	"\x04gyro\x18\x04 \x01(\v2\x0f.xeniq.GyroDataH\x00R\x04gyro\x12%\n" +
-	"\x03ack\x18\x05 \x01(\v2\x11.xeniq.ControlAckH\x00R\x03ackB\t\n" +
-	"\apayload\"u\n" +
+	"\x03ack\x18\x05 \x01(\v2\x11.xeniq.ControlAckH\x00R\x03ack\x12*\n" +
+	"\x05state\x18\x06 \x01(\v2\x12.xeniq.CameraStateH\x00R\x05stateB\t\n" +
+	"\apayload\"\x8e\x01\n" +
+	"\vCameraState\x12\x1d\n" +
+	"\n" +
+	"zoom_level\x18\x01 \x01(\x02R\tzoomLevel\x12\x19\n" +
+	"\banchor_x\x18\x02 \x01(\x02R\aanchorX\x12\x19\n" +
+	"\banchor_y\x18\x03 \x01(\x02R\aanchorY\x12*\n" +
+	"\x04mode\x18\x04 \x01(\x0e2\x16.xeniq.ControlModeTypeR\x04mode\"M\n" +
 	"\rCameraCommand\x12&\n" +
 	"\x04type\x18\x01 \x01(\x0e2\x12.xeniq.CommandTypeR\x04type\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\x02R\x05value\x12\x10\n" +
-	"\x03yaw\x18\x03 \x01(\x02R\x03yaw\x12\x14\n" +
-	"\x05pitch\x18\x04 \x01(\x02R\x05pitch\"p\n" +
+	"\x05value\x18\x02 \x01(\x02R\x05value\"p\n" +
 	"\bGyroData\x12\f\n" +
 	"\x01x\x18\x01 \x01(\x02R\x01x\x12\f\n" +
 	"\x01y\x18\x02 \x01(\x02R\x01y\x12\f\n" +
@@ -1773,7 +1894,10 @@ const file_proto_xeniq_proto_rawDesc = "" +
 	"ControlAck\x12\x1d\n" +
 	"\n" +
 	"command_id\x18\x01 \x01(\tR\tcommandId\x12\x18\n" +
-	"\asuccess\x18\x02 \x01(\bR\asuccess*\xc2\x01\n" +
+	"\asuccess\x18\x02 \x01(\bR\asuccess*A\n" +
+	"\x0fControlModeType\x12\x17\n" +
+	"\x13CONTROL_MODE_BUTTON\x10\x00\x12\x15\n" +
+	"\x11CONTROL_MODE_GYRO\x10\x01*\xc2\x01\n" +
 	"\vCommandType\x12\v\n" +
 	"\aUNKNOWN\x10\x00\x12\x0f\n" +
 	"\vROTATE_LEFT\x10\x01\x12\x10\n" +
@@ -1804,114 +1928,119 @@ const file_proto_xeniq_proto_rawDesc = "" +
 	"\rStreamControl\x12\x13.xeniq.ControlEvent\x1a\x13.xeniq.ControlEvent(\x010\x01B'Z%github.com/neha/xeniqclone/backend/pbb\x06proto3"
 
 var (
-	file_proto_xeniq_proto_rawDescOnce sync.Once
-	file_proto_xeniq_proto_rawDescData []byte
+	file_xeniq_proto_rawDescOnce sync.Once
+	file_xeniq_proto_rawDescData []byte
 )
 
-func file_proto_xeniq_proto_rawDescGZIP() []byte {
-	file_proto_xeniq_proto_rawDescOnce.Do(func() {
-		file_proto_xeniq_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_proto_xeniq_proto_rawDesc), len(file_proto_xeniq_proto_rawDesc)))
+func file_xeniq_proto_rawDescGZIP() []byte {
+	file_xeniq_proto_rawDescOnce.Do(func() {
+		file_xeniq_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_xeniq_proto_rawDesc), len(file_xeniq_proto_rawDesc)))
 	})
-	return file_proto_xeniq_proto_rawDescData
+	return file_xeniq_proto_rawDescData
 }
 
-var file_proto_xeniq_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_proto_xeniq_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
-var file_proto_xeniq_proto_goTypes = []any{
-	(CommandType)(0),                 // 0: xeniq.CommandType
-	(*RegisterProviderRequest)(nil),  // 1: xeniq.RegisterProviderRequest
-	(*RegisterProviderResponse)(nil), // 2: xeniq.RegisterProviderResponse
-	(*SetAvailabilityRequest)(nil),   // 3: xeniq.SetAvailabilityRequest
-	(*SetAvailabilityResponse)(nil),  // 4: xeniq.SetAvailabilityResponse
-	(*ListProvidersRequest)(nil),     // 5: xeniq.ListProvidersRequest
-	(*ListProvidersResponse)(nil),    // 6: xeniq.ListProvidersResponse
-	(*SearchRequest)(nil),            // 7: xeniq.SearchRequest
-	(*SearchResponse)(nil),           // 8: xeniq.SearchResponse
-	(*ProviderStatusEvent)(nil),      // 9: xeniq.ProviderStatusEvent
-	(*IncomingCallsRequest)(nil),     // 10: xeniq.IncomingCallsRequest
-	(*IncomingCallEvent)(nil),        // 11: xeniq.IncomingCallEvent
-	(*CallRequest)(nil),              // 12: xeniq.CallRequest
-	(*CallResponse)(nil),             // 13: xeniq.CallResponse
-	(*AnswerCallRequest)(nil),        // 14: xeniq.AnswerCallRequest
-	(*AnswerCallResponse)(nil),       // 15: xeniq.AnswerCallResponse
-	(*DeclineCallRequest)(nil),       // 16: xeniq.DeclineCallRequest
-	(*DeclineCallResponse)(nil),      // 17: xeniq.DeclineCallResponse
-	(*ConnectionEvent)(nil),          // 18: xeniq.ConnectionEvent
-	(*IceCandidate)(nil),             // 19: xeniq.IceCandidate
-	(*SessionDescription)(nil),       // 20: xeniq.SessionDescription
-	(*EndCall)(nil),                  // 21: xeniq.EndCall
-	(*ControlEvent)(nil),             // 22: xeniq.ControlEvent
-	(*CameraCommand)(nil),            // 23: xeniq.CameraCommand
-	(*GyroData)(nil),                 // 24: xeniq.GyroData
-	(*ControlAck)(nil),               // 25: xeniq.ControlAck
+var file_xeniq_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_xeniq_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
+var file_xeniq_proto_goTypes = []any{
+	(ControlModeType)(0),             // 0: xeniq.ControlModeType
+	(CommandType)(0),                 // 1: xeniq.CommandType
+	(*RegisterProviderRequest)(nil),  // 2: xeniq.RegisterProviderRequest
+	(*RegisterProviderResponse)(nil), // 3: xeniq.RegisterProviderResponse
+	(*SetAvailabilityRequest)(nil),   // 4: xeniq.SetAvailabilityRequest
+	(*SetAvailabilityResponse)(nil),  // 5: xeniq.SetAvailabilityResponse
+	(*ListProvidersRequest)(nil),     // 6: xeniq.ListProvidersRequest
+	(*ListProvidersResponse)(nil),    // 7: xeniq.ListProvidersResponse
+	(*SearchRequest)(nil),            // 8: xeniq.SearchRequest
+	(*SearchResponse)(nil),           // 9: xeniq.SearchResponse
+	(*ProviderStatusEvent)(nil),      // 10: xeniq.ProviderStatusEvent
+	(*IncomingCallsRequest)(nil),     // 11: xeniq.IncomingCallsRequest
+	(*IncomingCallEvent)(nil),        // 12: xeniq.IncomingCallEvent
+	(*CallRequest)(nil),              // 13: xeniq.CallRequest
+	(*CallResponse)(nil),             // 14: xeniq.CallResponse
+	(*AnswerCallRequest)(nil),        // 15: xeniq.AnswerCallRequest
+	(*AnswerCallResponse)(nil),       // 16: xeniq.AnswerCallResponse
+	(*DeclineCallRequest)(nil),       // 17: xeniq.DeclineCallRequest
+	(*DeclineCallResponse)(nil),      // 18: xeniq.DeclineCallResponse
+	(*ConnectionEvent)(nil),          // 19: xeniq.ConnectionEvent
+	(*IceCandidate)(nil),             // 20: xeniq.IceCandidate
+	(*SessionDescription)(nil),       // 21: xeniq.SessionDescription
+	(*EndCall)(nil),                  // 22: xeniq.EndCall
+	(*ControlEvent)(nil),             // 23: xeniq.ControlEvent
+	(*CameraState)(nil),              // 24: xeniq.CameraState
+	(*CameraCommand)(nil),            // 25: xeniq.CameraCommand
+	(*GyroData)(nil),                 // 26: xeniq.GyroData
+	(*ControlAck)(nil),               // 27: xeniq.ControlAck
 }
-var file_proto_xeniq_proto_depIdxs = []int32{
-	9,  // 0: xeniq.ListProvidersResponse.providers:type_name -> xeniq.ProviderStatusEvent
-	19, // 1: xeniq.ConnectionEvent.ice:type_name -> xeniq.IceCandidate
-	20, // 2: xeniq.ConnectionEvent.sdp:type_name -> xeniq.SessionDescription
-	21, // 3: xeniq.ConnectionEvent.end:type_name -> xeniq.EndCall
-	23, // 4: xeniq.ControlEvent.command:type_name -> xeniq.CameraCommand
-	24, // 5: xeniq.ControlEvent.gyro:type_name -> xeniq.GyroData
-	25, // 6: xeniq.ControlEvent.ack:type_name -> xeniq.ControlAck
-	0,  // 7: xeniq.CameraCommand.type:type_name -> xeniq.CommandType
-	1,  // 8: xeniq.ProviderService.RegisterProvider:input_type -> xeniq.RegisterProviderRequest
-	3,  // 9: xeniq.ProviderService.SetAvailability:input_type -> xeniq.SetAvailabilityRequest
-	5,  // 10: xeniq.ProviderService.ListProviders:input_type -> xeniq.ListProvidersRequest
-	7,  // 11: xeniq.ProviderService.SearchProvider:input_type -> xeniq.SearchRequest
-	10, // 12: xeniq.ConnectService.StreamIncomingCalls:input_type -> xeniq.IncomingCallsRequest
-	12, // 13: xeniq.ConnectService.RequestCall:input_type -> xeniq.CallRequest
-	14, // 14: xeniq.ConnectService.AcceptCall:input_type -> xeniq.AnswerCallRequest
-	16, // 15: xeniq.ConnectService.DeclineCall:input_type -> xeniq.DeclineCallRequest
-	18, // 16: xeniq.ConnectService.StreamConnection:input_type -> xeniq.ConnectionEvent
-	22, // 17: xeniq.ControlService.StreamControl:input_type -> xeniq.ControlEvent
-	2,  // 18: xeniq.ProviderService.RegisterProvider:output_type -> xeniq.RegisterProviderResponse
-	4,  // 19: xeniq.ProviderService.SetAvailability:output_type -> xeniq.SetAvailabilityResponse
-	6,  // 20: xeniq.ProviderService.ListProviders:output_type -> xeniq.ListProvidersResponse
-	8,  // 21: xeniq.ProviderService.SearchProvider:output_type -> xeniq.SearchResponse
-	11, // 22: xeniq.ConnectService.StreamIncomingCalls:output_type -> xeniq.IncomingCallEvent
-	13, // 23: xeniq.ConnectService.RequestCall:output_type -> xeniq.CallResponse
-	15, // 24: xeniq.ConnectService.AcceptCall:output_type -> xeniq.AnswerCallResponse
-	17, // 25: xeniq.ConnectService.DeclineCall:output_type -> xeniq.DeclineCallResponse
-	18, // 26: xeniq.ConnectService.StreamConnection:output_type -> xeniq.ConnectionEvent
-	22, // 27: xeniq.ControlService.StreamControl:output_type -> xeniq.ControlEvent
-	18, // [18:28] is the sub-list for method output_type
-	8,  // [8:18] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+var file_xeniq_proto_depIdxs = []int32{
+	10, // 0: xeniq.ListProvidersResponse.providers:type_name -> xeniq.ProviderStatusEvent
+	20, // 1: xeniq.ConnectionEvent.ice:type_name -> xeniq.IceCandidate
+	21, // 2: xeniq.ConnectionEvent.sdp:type_name -> xeniq.SessionDescription
+	22, // 3: xeniq.ConnectionEvent.end:type_name -> xeniq.EndCall
+	25, // 4: xeniq.ControlEvent.command:type_name -> xeniq.CameraCommand
+	26, // 5: xeniq.ControlEvent.gyro:type_name -> xeniq.GyroData
+	27, // 6: xeniq.ControlEvent.ack:type_name -> xeniq.ControlAck
+	24, // 7: xeniq.ControlEvent.state:type_name -> xeniq.CameraState
+	0,  // 8: xeniq.CameraState.mode:type_name -> xeniq.ControlModeType
+	1,  // 9: xeniq.CameraCommand.type:type_name -> xeniq.CommandType
+	2,  // 10: xeniq.ProviderService.RegisterProvider:input_type -> xeniq.RegisterProviderRequest
+	4,  // 11: xeniq.ProviderService.SetAvailability:input_type -> xeniq.SetAvailabilityRequest
+	6,  // 12: xeniq.ProviderService.ListProviders:input_type -> xeniq.ListProvidersRequest
+	8,  // 13: xeniq.ProviderService.SearchProvider:input_type -> xeniq.SearchRequest
+	11, // 14: xeniq.ConnectService.StreamIncomingCalls:input_type -> xeniq.IncomingCallsRequest
+	13, // 15: xeniq.ConnectService.RequestCall:input_type -> xeniq.CallRequest
+	15, // 16: xeniq.ConnectService.AcceptCall:input_type -> xeniq.AnswerCallRequest
+	17, // 17: xeniq.ConnectService.DeclineCall:input_type -> xeniq.DeclineCallRequest
+	19, // 18: xeniq.ConnectService.StreamConnection:input_type -> xeniq.ConnectionEvent
+	23, // 19: xeniq.ControlService.StreamControl:input_type -> xeniq.ControlEvent
+	3,  // 20: xeniq.ProviderService.RegisterProvider:output_type -> xeniq.RegisterProviderResponse
+	5,  // 21: xeniq.ProviderService.SetAvailability:output_type -> xeniq.SetAvailabilityResponse
+	7,  // 22: xeniq.ProviderService.ListProviders:output_type -> xeniq.ListProvidersResponse
+	9,  // 23: xeniq.ProviderService.SearchProvider:output_type -> xeniq.SearchResponse
+	12, // 24: xeniq.ConnectService.StreamIncomingCalls:output_type -> xeniq.IncomingCallEvent
+	14, // 25: xeniq.ConnectService.RequestCall:output_type -> xeniq.CallResponse
+	16, // 26: xeniq.ConnectService.AcceptCall:output_type -> xeniq.AnswerCallResponse
+	18, // 27: xeniq.ConnectService.DeclineCall:output_type -> xeniq.DeclineCallResponse
+	19, // 28: xeniq.ConnectService.StreamConnection:output_type -> xeniq.ConnectionEvent
+	23, // 29: xeniq.ControlService.StreamControl:output_type -> xeniq.ControlEvent
+	20, // [20:30] is the sub-list for method output_type
+	10, // [10:20] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
-func init() { file_proto_xeniq_proto_init() }
-func file_proto_xeniq_proto_init() {
-	if File_proto_xeniq_proto != nil {
+func init() { file_xeniq_proto_init() }
+func file_xeniq_proto_init() {
+	if File_xeniq_proto != nil {
 		return
 	}
-	file_proto_xeniq_proto_msgTypes[17].OneofWrappers = []any{
+	file_xeniq_proto_msgTypes[17].OneofWrappers = []any{
 		(*ConnectionEvent_Ice)(nil),
 		(*ConnectionEvent_Sdp)(nil),
 		(*ConnectionEvent_End)(nil),
 	}
-	file_proto_xeniq_proto_msgTypes[21].OneofWrappers = []any{
+	file_xeniq_proto_msgTypes[21].OneofWrappers = []any{
 		(*ControlEvent_Command)(nil),
 		(*ControlEvent_Gyro)(nil),
 		(*ControlEvent_Ack)(nil),
+		(*ControlEvent_State)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_xeniq_proto_rawDesc), len(file_proto_xeniq_proto_rawDesc)),
-			NumEnums:      1,
-			NumMessages:   25,
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_xeniq_proto_rawDesc), len(file_xeniq_proto_rawDesc)),
+			NumEnums:      2,
+			NumMessages:   26,
 			NumExtensions: 0,
 			NumServices:   3,
 		},
-		GoTypes:           file_proto_xeniq_proto_goTypes,
-		DependencyIndexes: file_proto_xeniq_proto_depIdxs,
-		EnumInfos:         file_proto_xeniq_proto_enumTypes,
-		MessageInfos:      file_proto_xeniq_proto_msgTypes,
+		GoTypes:           file_xeniq_proto_goTypes,
+		DependencyIndexes: file_xeniq_proto_depIdxs,
+		EnumInfos:         file_xeniq_proto_enumTypes,
+		MessageInfos:      file_xeniq_proto_msgTypes,
 	}.Build()
-	File_proto_xeniq_proto = out.File
-	file_proto_xeniq_proto_goTypes = nil
-	file_proto_xeniq_proto_depIdxs = nil
+	File_xeniq_proto = out.File
+	file_xeniq_proto_goTypes = nil
+	file_xeniq_proto_depIdxs = nil
 }

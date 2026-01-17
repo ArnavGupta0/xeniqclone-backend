@@ -180,12 +180,27 @@ message ControlEvent {
   string sender_id = 2;
   
   oneof payload {
-    CameraCommand command = 3;
-    GyroData gyro = 4;
+    CameraCommand command = 3;  // Legacy command-based control
+    GyroData gyro = 4;          // Gyro orientation updates
     ControlAck ack = 5;
+    CameraState state = 6;      // State-based camera control (preferred)
   }
 }
 
+// State-based camera control - replaces command flooding
+message CameraState {
+  float zoom_level = 1;       // Absolute zoom: 1.0 = normal, up to max (e.g. 6.0)
+  float anchor_x = 2;         // Normalized 0.0-1.0, zoom anchor X
+  float anchor_y = 3;         // Normalized 0.0-1.0, zoom anchor Y
+  ControlModeType mode = 4;   // Current control mode
+}
+
+enum ControlModeType {
+  CONTROL_MODE_BUTTON = 0;
+  CONTROL_MODE_GYRO = 1;
+}
+
+// Legacy command-based control (for backwards compatibility)
 message CameraCommand {
   CommandType type = 1;
   float value = 2;
@@ -201,6 +216,8 @@ enum CommandType {
   ZOOM_IN = 6;
   ZOOM_OUT = 7;
   STOP = 8;
+  GYRO_ORIENTATION = 9;
+  GYRO_RESET = 10;
 }
 
 message GyroData {
@@ -208,11 +225,12 @@ message GyroData {
   float y = 2;
   float z = 3;
   float roll = 4;
-  float pitch = 5;
-  float yaw = 6;
+  float pitch = 5;    // Normalized -1.0 to +1.0
+  float yaw = 6;      // Normalized -1.0 to +1.0
 }
 
 message ControlAck {
   string command_id = 1;
   bool success = 2;
 }
+

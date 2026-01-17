@@ -84,6 +84,10 @@ var (
 	// Control stream registry for navigation commands
 	controlStreams   = make(map[string]*ControlStreamPair) // callID -> ControlStreamPair
 	controlStreamsMu sync.RWMutex
+
+	// State deduplication for CameraState messages
+	lastCameraState   = make(map[string]*pb.CameraState) // callID -> last state
+	lastCameraStateMu sync.RWMutex
 )
 
 // ControlStreamPair holds consumer and provider control streams for a call
@@ -845,14 +849,44 @@ func (s *server) StreamControl(
 	}
 }
 
-// routeControlCommand forwards control events from consumer to provider
+// routeControlEvent forwards control events from consumer to provider
+// Handles CameraState (with deduplication), GyroData, and legacy commands
 func routeControlCommand(event *pb.ControlEvent, pair *ControlStreamPair, fromConsumer bool) {
-	if event.GetCommand() == nil {
-		return // Only route command events
-	}
+	callID := event.GetCallId()
 
-	cmdType := event.GetCommand().GetType()
-	log.Printf("🎮 [CONTROL] Routing command: %v (call=%s)", cmdType, event.GetCallId())
+	// Determine event type for logging
+	var eventType string
+
+	// Handle CameraState with deduplication
+	if event.GetState() != nil {
+		state := event.GetState()
+		eventType = "CameraState"
+
+		// Check for duplicate state
+		lastCameraStateMu.Lock()
+		if lastState, ok := lastCameraState[callID]; ok {
+			if statesEqual(lastState, state) {
+				lastCameraStateMu.Unlock()
+				log.Printf("⏭️ [CONTROL] Dropping duplicate state (call=%s)", callID)
+				return // Drop duplicate
+			}
+		}
+		lastCameraState[callID] = state
+		lastCameraStateMu.Unlock()
+
+		log.Printf("📐 [CONTROL] Routing state: zoom=%.2f anchor=(%.2f,%.2f) mode=%v (call=%s)",
+			state.GetZoomLevel(), state.GetAnchorX(), state.GetAnchorY(), state.GetMode(), callID)
+	} else if event.GetGyro() != nil {
+		gyro := event.GetGyro()
+		eventType = "GyroData"
+		log.Printf("🌀 [CONTROL] Routing gyro: yaw=%.2f pitch=%.2f (call=%s)",
+			gyro.GetYaw(), gyro.GetPitch(), callID)
+	} else if event.GetCommand() != nil {
+		eventType = event.GetCommand().GetType().String()
+		log.Printf("🎮 [CONTROL] Routing command: %v (call=%s)", eventType, callID)
+	} else {
+		return // No payload
+	}
 
 	pair.mu.RLock()
 	defer pair.mu.RUnlock()
@@ -862,18 +896,38 @@ func routeControlCommand(event *pb.ControlEvent, pair *ControlStreamPair, fromCo
 		if err := pair.ProviderStream.Send(event); err != nil {
 			log.Printf("❌ [CONTROL] Failed to forward to provider: %v", err)
 		} else {
-			log.Printf("✅ [CONTROL] Command forwarded to provider: %v", cmdType)
+			log.Printf("✅ [CONTROL] Forwarded to provider: %s", eventType)
 		}
 	} else if fromConsumer {
-		log.Printf("⚠️ [CONTROL] Provider stream not available for call: %s", event.GetCallId())
+		log.Printf("⚠️ [CONTROL] Provider stream not available for call: %s", callID)
 	}
 
-	// Provider -> Consumer routing (for acknowledgments if needed in future)
+	// Provider -> Consumer routing (for acknowledgments/state sync)
 	if !fromConsumer && pair.ConsumerStream != nil {
 		if err := pair.ConsumerStream.Send(event); err != nil {
 			log.Printf("❌ [CONTROL] Failed to forward to consumer: %v", err)
 		}
 	}
+}
+
+// statesEqual checks if two CameraState messages are equivalent
+func statesEqual(a, b *pb.CameraState) bool {
+	if a == nil || b == nil {
+		return a == b
+	}
+	// Use tolerance for float comparison
+	const eps = 0.01
+	return abs(a.GetZoomLevel()-b.GetZoomLevel()) < eps &&
+		abs(a.GetAnchorX()-b.GetAnchorX()) < eps &&
+		abs(a.GetAnchorY()-b.GetAnchorY()) < eps &&
+		a.GetMode() == b.GetMode()
+}
+
+func abs(x float32) float32 {
+	if x < 0 {
+		return -x
+	}
+	return x
 }
 
 // cleanupControlStreams removes control streams for a session (called from session cleanup)
@@ -884,6 +938,11 @@ func cleanupControlStreams(callID string) {
 		delete(controlStreams, callID)
 		log.Printf("🗑️ [CONTROL] Control streams cleaned up for call: %s", callID)
 	}
+
+	// Also clean up cached state
+	lastCameraStateMu.Lock()
+	delete(lastCameraState, callID)
+	lastCameraStateMu.Unlock()
 }
 
 // ======================================================
